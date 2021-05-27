@@ -16,6 +16,11 @@
   box-sizing: border-box;
 }
 
+.cell--station {
+  font-size: 24px;
+  color: grey;
+}
+
 .start {
   position: absolute;
   width: 300px;
@@ -40,6 +45,15 @@
   top: 50px;
 }
 
+.token {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  z-index: 50;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
 .red-safe {
   background-color: red;
 }
@@ -54,4 +68,20 @@
 
 .blue-safe {
   background-color: blue;
+}
+
+.red-token {
+  background-color: darkred;
+}
+
+.yellow-token {
+  background-color: darkgoldenrod;
+}
+
+.green-token {
+  background-color: darkgreen;
+}
+
+.blue-token {
+  background-color: darkblue;
 }

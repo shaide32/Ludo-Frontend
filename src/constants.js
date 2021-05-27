@@ -11,7 +11,14 @@ const PLAYER_TYPE = {
     yellow: "YELLOW"
 };
 
+const TOKEN_STATUS = {
+    not_started: "Not Started",
+    active: "active",
+    finished: "finished"
+};
+
 export {
     CELL_TYPE,
-    PLAYER_TYPE
+    PLAYER_TYPE,
+    TOKEN_STATUS
 };
