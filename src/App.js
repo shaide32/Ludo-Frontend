@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { createCells } from './utils/cells';
+
 import './App.css';
+import { drawCells } from './components/cell';
 
 function App() {
+  const [cells, updateCells] = useState(createCells())
+  console.log(cells);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {
+        cells.map(cell => {
+          return drawCells(cell);
+        })
+      }
     </div>
   );
 }
