@@ -1,4 +1,4 @@
-import { CELL_TYPE, PLAYER_TYPE } from '../constants';
+import { PLAYER_TYPE } from '../constants';
 import { getCellPostionStyles } from '../utils/cells';
 
 const drawCells = (cell) => {

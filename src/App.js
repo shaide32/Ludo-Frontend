@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { createCells } from './utils/cells';
 
 import './App.css';
-import { drawCells } from './components/cell';
+import { drawCells } from './components/Cell';
+import { drawStartRects } from './components/Start';
 
 function App() {
   const [cells, updateCells] = useState(createCells())
@@ -13,6 +14,9 @@ function App() {
         cells.map(cell => {
           return drawCells(cell);
         })
+      }
+      {
+        drawStartRects()
       }
     </div>
   );
