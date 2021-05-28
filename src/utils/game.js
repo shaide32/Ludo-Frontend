@@ -12,9 +12,9 @@ const startGame = (game, updateGame) => {
 const getGameStatusLabel = (game) => {
     let label = "";
     if(game.status === GAME_STATUS.finished) {
-        label = "Game has been finished";
+        label = "Game has been finished - Reload the page";
     } else if(game.status === GAME_STATUS.not_started ) {
-        label = "Game is not started";
+        label = "Game is not started - Click on the Start Game button";
     } else {
         if(game.playerTurn === PLAYER_TYPE.red) {
             label = "Waiting for player 1";
@@ -24,6 +24,11 @@ const getGameStatusLabel = (game) => {
             label = "Waiting for player 3";
         } else if(game.playerTurn === PLAYER_TYPE.blue) {
             label = "Waiting for player 4";
+        }
+        if(game.status === GAME_STATUS.waiting_for_dice) {
+            label += "- Click on box on roll the dice";
+        } else if(game.status === GAME_STATUS.waiting_for_token) {
+            label += "- Select on of the tokens for the move";
         }
     }
     return label;
@@ -49,13 +54,13 @@ const changeTurns = (game, updateGame) => {
 
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 6 //1 + Math.floor(Math.random() * 6);
+        const diceVal = 6 // 1 + Math.floor(Math.random() * 6);
         updateGame({
             ...game,
             diceVal,
             status: GAME_STATUS.waiting_for_token
         });
-        const newPlaerTokens = playerTokens.map(token => {
+        const newPlayerTokens = playerTokens.map(token => {
             if(token.player_id === game.playerTurn &&
                 (token.position !== -1 || (token.position === -1 && diceVal === 6)) &&
                 token.status !== TOKEN_STATUS.finished
@@ -68,7 +73,7 @@ const rollDice = (game, updateGame, playerTokens, updatePlayerTokens) => {
                 return token;
             }
         });
-        updatePlayerTokens(newPlaerTokens);
+        updatePlayerTokens(newPlayerTokens);
     }
 };
 
@@ -98,8 +103,7 @@ const moveToken = (diceVal, token, player) => {
     return {
         ...token,
         position: cellIndex,
-        status,
-        focussed: false
+        status
     }
 };
 
@@ -108,11 +112,17 @@ const updateTokenPostion = (token, game, players, playerTokens, updatePlayerToke
         const player = players.find(player => player.id === token.player_id);
         const tokenIndex = playerTokens.findIndex(pToken => pToken.id === token.id);
         const newToken = moveToken(game.diceVal, token, player);
-        const newPlayerTokens = [
+        let newPlayerTokens = [
             ...playerTokens.slice(0, tokenIndex),
             newToken,
             ...playerTokens.slice(tokenIndex+1)
         ];
+        newPlayerTokens = newPlayerTokens.map((playerToken) => {
+            return {
+                ...playerToken,
+                focussed: false
+            }
+        });
         updatePlayerTokens(newPlayerTokens);
         changeTurns(game, updateGame);
     }
