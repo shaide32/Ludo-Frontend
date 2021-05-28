@@ -52,23 +52,30 @@ const changeTurns = (game, updateGame) => {
     });
 };
 
-const rollDice = (game, updateGame, playerTokens, updatePlayerTokens) => {
+const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 6 // 1 + Math.floor(Math.random() * 6);
+        const diceVal = 5 // 1 + Math.floor(Math.random() * 6);
+        
         updateGame({
             ...game,
             diceVal,
             status: GAME_STATUS.waiting_for_token
         });
         const newPlayerTokens = playerTokens.map(token => {
+            const player = players.find(player => player.id === token.player_id);
             if(token.player_id === game.playerTurn &&
                 (token.position !== -1 || (token.position === -1 && diceVal === 6)) &&
-                token.status !== TOKEN_STATUS.finished
+                token.status !== TOKEN_STATUS.finished   
             ) {
-                return {
-                    ...token,
-                    focussed: true
-                }
+                if((token.position >= player.homeStartCell && token.position < player.endCell) &&
+                token.position + diceVal > player.endCell) {
+                    return token;
+                } else {
+                    return {
+                        ...token,
+                        focussed: true
+                    }
+                }   
             } else {
                 return token;
             }
@@ -99,7 +106,9 @@ const moveToken = (diceVal, token, player) => {
             }
         }
     }
-    
+    if(cellIndex === player.endCell) {
+        status = TOKEN_STATUS.finished;
+    }
     return {
         ...token,
         position: cellIndex,
@@ -108,7 +117,7 @@ const moveToken = (diceVal, token, player) => {
 };
 
 const updateTokenPostion = (token, game, players, playerTokens, updatePlayerTokens, updateGame) => {
-    if(game.status === GAME_STATUS.waiting_for_token) {
+    if(game.status === GAME_STATUS.waiting_for_token && token.focussed) {
         const player = players.find(player => player.id === token.player_id);
         const tokenIndex = playerTokens.findIndex(pToken => pToken.id === token.id);
         const newToken = moveToken(game.diceVal, token, player);
@@ -117,6 +126,7 @@ const updateTokenPostion = (token, game, players, playerTokens, updatePlayerToke
             newToken,
             ...playerTokens.slice(tokenIndex+1)
         ];
+        // after the move all tokens are un focussed
         newPlayerTokens = newPlayerTokens.map((playerToken) => {
             return {
                 ...playerToken,

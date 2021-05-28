@@ -37,7 +37,7 @@ function App() {
         }
       </div>
       <p> { getGameStatusLabel(game)}</p>
-      <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens)}>{game.diceVal}</div>
+      <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}>{game.diceVal}</div>
       <button
         disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}
         onClick={() => startGame(game, updateGame)}>
