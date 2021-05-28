@@ -142,5 +142,6 @@ export {
     startGame,
     getGameStatusLabel,
     rollDice,
-    updateTokenPostion
+    updateTokenPostion,
+    changeTurns
 }
