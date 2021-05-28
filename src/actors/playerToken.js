@@ -6,6 +6,7 @@ class PlayerToken {
         this.player_id = player_id;
         this.position = position;
         this.status = status;
+        this.focussed = false;
     }
 }
 

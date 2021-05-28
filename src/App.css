@@ -1,11 +1,19 @@
 .app {
   text-align: center;
   width: 750px;
-  height: 750px;
+  height: 100%;
   position: relative;
   margin: auto;
   box-sizing: content-box;
+  padding: 10px;
+}
+
+.board {
+  position: relative;
+  width: 750px;
+  height: 750px;
   border: 2px solid gray;
+  
 }
 
 .cell {
@@ -19,6 +27,16 @@
 .cell--station {
   font-size: 24px;
   color: grey;
+}
+
+.dice {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  border-radius: 5%;
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: 64px;
 }
 
 .start {
@@ -52,6 +70,7 @@
   z-index: 50;
   border-radius: 50%;
   border: 2px solid black;
+  transition: all 1s ease-in;
 }
 
 .red-safe {
@@ -74,14 +93,30 @@
   background-color: darkred;
 }
 
+.red-token--active {
+  border: 2px solid white;
+}
+
 .yellow-token {
   background-color: darkgoldenrod;
+}
+
+.yellow-token--active {
+  border: 2px solid white;
 }
 
 .green-token {
   background-color: darkgreen;
 }
 
+.green-token--active {
+  border: 2px solid white;
+}
+
 .blue-token {
   background-color: darkblue;
+}
+
+.blue-token--active {
+  border: 2px solid white;
 }

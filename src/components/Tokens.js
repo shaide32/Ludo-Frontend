@@ -1,20 +1,36 @@
-import { PLAYER_TYPE } from '../constants';
+import { GAME_STATUS, PLAYER_TYPE } from '../constants';
+import { updateTokenPostion } from '../utils/game';
 import { getTokenPostionStyles } from '../utils/playerTokens';
 
-const drawToken = (token) => {
+const drawToken = (token, game, players, playerTokens, updatePlayerTokens, updateGame) => {
     const styles = getTokenPostionStyles(token);
     let className = '';
     if(token.player_id === PLAYER_TYPE.red) {
-        className = 'red-token';
+        className += 'red-token';
     } else if(token.player_id === PLAYER_TYPE.green) {
-        className = 'green-token';
+        className += 'green-token';
     } else if(token.player_id === PLAYER_TYPE.yellow) {
-        className = 'yellow-token';
+        className += 'yellow-token';
     } else if(token.player_id === PLAYER_TYPE.blue) {
-        className = 'blue-token';
+        className += 'blue-token';
+    }
+    if(game.status === GAME_STATUS.waiting_for_token) {
+        if(game.playerTurn === PLAYER_TYPE.red && token.focussed) {
+            className += ' red-token--active';
+        } else if(game.playerTurn === PLAYER_TYPE.green && token.focussed) {
+            className += ' green-token--active';
+        } else if(game.playerTurn === PLAYER_TYPE.yellow && token.focussed) {
+            className += ' yellow-token--active';
+        } else if(game.playerTurn === PLAYER_TYPE.blue && token.focussed) {
+            className += ' blue-token--active';
+        }
     }
     return (
-        <div className={`token ${className}`} style={styles}>
+        <div
+            className={`token ${className}`}
+            style={styles}
+            onClick={() => updateTokenPostion(token, game, players, playerTokens, updatePlayerTokens, updateGame)}
+        >
             
         </div>
     );

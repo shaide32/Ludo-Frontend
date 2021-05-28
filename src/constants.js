@@ -17,8 +17,17 @@ const TOKEN_STATUS = {
     finished: "finished"
 };
 
+const GAME_STATUS = {
+    not_started: "Not Started",
+    animatig: "animating",
+    finished: "finished",
+    waiting_for_dice: "Waiting for dice",
+    waiting_for_token: "Waiting for token"
+};
+
 export {
     CELL_TYPE,
     PLAYER_TYPE,
-    TOKEN_STATUS
+    TOKEN_STATUS,
+    GAME_STATUS
 };
