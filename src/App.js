@@ -36,7 +36,7 @@ function App() {
           })
         }
       </div>
-      <p> { getGameStatusLabel(game)}</p>
+      <h2> { getGameStatusLabel(game)}</h2>
       <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}>{game.diceVal}</div>
       <button
         disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}

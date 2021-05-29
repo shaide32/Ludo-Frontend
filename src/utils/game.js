@@ -26,9 +26,9 @@ const getGameStatusLabel = (game) => {
             label = "Waiting for player 4";
         }
         if(game.status === GAME_STATUS.waiting_for_dice) {
-            label += "- Click on box on roll the dice";
+            label += "- Click on the box to roll the dice";
         } else if(game.status === GAME_STATUS.waiting_for_token) {
-            label += "- Select on of the tokens for the move";
+            label += "- Select one of the tokens for the move";
         }
     }
     return label;
