@@ -16,6 +16,11 @@ function App() {
   const [players, updatePlayers] = useState(createPlayers());
   const [playerTokens, updatePlayerTokens ] = useState(createPlayerTokens());
   const [game, updateGame] = useState(new Game());
+  let diceClassName = '';
+
+  if(game.status === GAME_STATUS.waiting_for_dice) {
+    diceClassName += " blink ";
+  }
 
   console.log(players);
   console.log(playerTokens);
@@ -41,19 +46,21 @@ function App() {
       <div className="controls">
         <h2> { getGameStatusLabel(game, players)}</h2>
         <div
-          className="dice"
+          className={`dice${diceClassName}`}
           onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}
         >
           {game.status === GAME_STATUS.waiting_for_token? game.diceVal: null}
         </div>
         <button
+          className="btn-primary"
           disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}
           onClick={() => startGame(game, updateGame)}>
           Start Game
         </button>
         <button
+          className="btn-secondary"
           disabled={!(game.status === GAME_STATUS.waiting_for_token)}
-          onClick={() => changeTurns(game, updateGame)}>
+          onClick={() => changeTurns(game, updateGame, playerTokens, updatePlayerTokens)}>
           Skip Turn
         </button>
       </div>

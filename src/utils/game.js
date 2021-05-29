@@ -29,7 +29,7 @@ const getGameStatusLabel = (game, players) => {
     return label;
 };
 
-const changeTurns = (game, updateGame) => {
+const changeTurns = (game, updateGame, playerTokens, updatePlayerTokens) => {
     let playerTurn; 
     if(game.playerTurn === PLAYER_TYPE.red) {
         playerTurn = PLAYER_TYPE.green;
@@ -45,18 +45,30 @@ const changeTurns = (game, updateGame) => {
         playerTurn,
         status: GAME_STATUS.waiting_for_dice
     });
+    endTurn(playerTokens, updatePlayerTokens);
 };
 
-const preserveTurns = (game, updateGame) => {
+const preserveTurns = (game, updateGame, playerTokens, updatePlayerTokens) => {
     updateGame({
         ...game,
         status: GAME_STATUS.waiting_for_dice
     });
+    endTurn(playerTokens, updatePlayerTokens);
+};
+
+const endTurn = (playerTokens, updatePlayerTokens) => {
+    const newPlayerTokens = playerTokens.map((playerToken) => {
+        return {
+            ...playerToken,
+            focussed: false
+        }
+    });
+    updatePlayerTokens(newPlayerTokens);
 };
 
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 6 // 1 + Math.floor(Math.random() * 6);
+        const diceVal = 1 + Math.floor(Math.random() * 6);
         
         updateGame({
             ...game,
@@ -134,13 +146,13 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
         }
         playerTokens[tokenIndex] = newToken;
         // after the move all tokens are un-focussed
-        const newPlayerTokens = playerTokens.map((playerToken) => {
-            return {
-                ...playerToken,
-                focussed: false
-            }
-        });
-        updatePlayerTokens(newPlayerTokens);
+        // const newPlayerTokens = playerTokens.map((playerToken) => {
+        //     return {
+        //         ...playerToken,
+        //         focussed: false
+        //     }
+        // });
+        // updatePlayerTokens(newPlayerTokens);
         
 
         // updating player if token has reached home
@@ -154,10 +166,10 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
         }
         
         if(newToken.status === TOKEN_STATUS.finished || game.diceVal === 6) {
-            preserveTurns(game, updateGame);
+            preserveTurns(game, updateGame, playerTokens, updatePlayerTokens);
         } else {
             // change turns only when a token has not finished or diceVal is not 6
-            changeTurns(game, updateGame);
+            changeTurns(game, updateGame, playerTokens, updatePlayerTokens);
         }
     }
 }

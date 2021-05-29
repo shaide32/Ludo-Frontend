@@ -11,6 +11,28 @@
   display: flex;
 }
 
+h2 {
+  color: #212121;
+}
+
+button {
+  padding: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  border-radius: 5%;
+  color: white;
+  border: 1px solid #212121;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #388E3C;
+}
+
+.btn-secondary {
+  background-color: #d32f2f;
+}
+
 .board {
   position: relative;
   width: 750px;
@@ -22,8 +44,11 @@
 .board-container {
   flex: 1 1 60%;
 }
+
 .controls {
   flex: 1 1 40%;
+  text-align: left;
+  padding-left: 20px;
 }
 
 .cell {
@@ -42,11 +67,13 @@
 .dice {
   width: 100px;
   height: 100px;
-  border: 2px solid black;
+  border: 2px solid #212121;
   border-radius: 5%;
-  margin: auto;
   margin-bottom: 10px;
   font-size: 64px;
+  background-color: #CFD8DC;
+  text-align: center;
+  box-shadow: 0px 0px 15px 0px #212121;
 }
 
 .start {
@@ -81,6 +108,7 @@
   border-radius: 50%;
   border: 2px solid #212121;
   transition: all 1s ease-in;
+  box-shadow: 0px 0px 5px 0px #212121;
 }
 
 .red-safe {
