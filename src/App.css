@@ -25,6 +25,10 @@ button {
   font-weight: 600;
 }
 
+button[disabled] {
+  opacity: 0.5;
+}
+
 .btn-primary {
   background-color: #388E3C;
 }
@@ -169,4 +173,40 @@ button {
 
 @keyframes blinker {  
   50% { opacity: 0.5; }
+}
+
+.arrow-up {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  border-bottom: 75px solid #f44336;
+}
+
+.arrow-right {
+  width: 0; 
+  height: 0;
+  background: transparent;
+  border-top: 75px solid transparent;
+  border-bottom: 75px solid transparent;
+  border-left: 75px solid #4CAF50;
+}
+
+.arrow-down {
+  width: 0; 
+  height: 0;
+  background: transparent;
+  border-left: 75px solid transparent;
+  border-right: 75px solid transparent;
+  border-top: 75px solid #FFC107;
+}
+
+.arrow-left {
+  width: 0; 
+  height: 0; 
+  background: transparent;
+  border-top: 75px solid transparent;
+  border-bottom: 75px solid transparent; 
+  border-right: 75px solid #2196F3; 
 }

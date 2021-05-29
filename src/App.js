@@ -21,7 +21,7 @@ function App() {
   if(game.status === GAME_STATUS.waiting_for_dice) {
     diceClassName += " blink ";
   }
-
+  console.log(cells);
   console.log(players);
   console.log(playerTokens);
   return (
