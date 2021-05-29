@@ -40,7 +40,12 @@ function App() {
       </div>
       <div className="controls">
         <h2> { getGameStatusLabel(game, players)}</h2>
-        <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}>{game.status === GAME_STATUS.waiting_for_token? game.diceVal: null}</div>
+        <div
+          className="dice"
+          onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}
+        >
+          {game.status === GAME_STATUS.waiting_for_token? game.diceVal: null}
+        </div>
         <button
           disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}
           onClick={() => startGame(game, updateGame)}>

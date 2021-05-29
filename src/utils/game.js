@@ -47,9 +47,16 @@ const changeTurns = (game, updateGame) => {
     });
 };
 
+const preserveTurns = (game, updateGame) => {
+    updateGame({
+        ...game,
+        status: GAME_STATUS.waiting_for_dice
+    });
+};
+
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 4 // 1 + Math.floor(Math.random() * 6);
+        const diceVal = 6 // 1 + Math.floor(Math.random() * 6);
         
         updateGame({
             ...game,
@@ -134,7 +141,7 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
             }
         });
         updatePlayerTokens(newPlayerTokens);
-        changeTurns(game, updateGame);
+        
 
         // updating player if token has reached home
         if(newToken.status === TOKEN_STATUS.finished) {
@@ -146,6 +153,12 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
             updatePlayers([...players]);
         }
         
+        if(newToken.status === TOKEN_STATUS.finished || game.diceVal === 6) {
+            preserveTurns(game, updateGame);
+        } else {
+            // change turns only when a token has not finished or diceVal is not 6
+            changeTurns(game, updateGame);
+        }
     }
 }
 
