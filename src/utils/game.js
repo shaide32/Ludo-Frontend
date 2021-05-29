@@ -54,7 +54,7 @@ const changeTurns = (game, updateGame) => {
 
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 5 // 1 + Math.floor(Math.random() * 6);
+        const diceVal = 1 // 1 + Math.floor(Math.random() * 6);
         
         updateGame({
             ...game,
@@ -116,18 +116,20 @@ const moveToken = (diceVal, token, player) => {
     }
 };
 
-const updateTokenPostion = (token, game, players, playerTokens, updatePlayerTokens, updateGame) => {
+const updateTokenPostion = ({ token, game, players, playerTokens, updatePlayerTokens, updateGame, cells }) => {
     if(game.status === GAME_STATUS.waiting_for_token && token.focussed) {
         const player = players.find(player => player.id === token.player_id);
         const tokenIndex = playerTokens.findIndex(pToken => pToken.id === token.id);
         const newToken = moveToken(game.diceVal, token, player);
-        let newPlayerTokens = [
-            ...playerTokens.slice(0, tokenIndex),
-            newToken,
-            ...playerTokens.slice(tokenIndex+1)
-        ];
-        // after the move all tokens are un focussed
-        newPlayerTokens = newPlayerTokens.map((playerToken) => {
+        // finding out if another token was already at that cell
+        let existingTokenIndex = playerTokens.findIndex(ptoken => ptoken.position === newToken.position);
+        if(existingTokenIndex !== -1 && !cells[newToken.position].station) {
+            playerTokens[existingTokenIndex].position = -1;
+            playerTokens[existingTokenIndex].status = TOKEN_STATUS.not_started;
+        }
+        playerTokens[tokenIndex] = newToken;
+        // after the move all tokens are un-focussed
+        const newPlayerTokens = playerTokens.map((playerToken) => {
             return {
                 ...playerToken,
                 focussed: false

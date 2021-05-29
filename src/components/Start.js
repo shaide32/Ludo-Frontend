@@ -4,7 +4,7 @@ import { PLAYER_TYPE } from '../constants';
 const drawStartRect = (color) => {
     const styles = getStartPostionStyles(color);
     return (
-        <div className="start" style={styles}>
+        <div key={color} className="start" style={styles}>
             <div className="start-circle start-circle--top"></div>
             <div className="start-circle start-circle--top"></div>
             <div className="start-circle start-circle--bottom"></div>

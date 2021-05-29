@@ -2,7 +2,7 @@ import { GAME_STATUS, PLAYER_TYPE } from '../constants';
 import { updateTokenPostion } from '../utils/game';
 import { getTokenPostionStyles } from '../utils/playerTokens';
 
-const drawToken = (token, game, players, playerTokens, updatePlayerTokens, updateGame) => {
+const drawToken = ({token, game, players, playerTokens, updatePlayerTokens, updateGame, cells }) => {
     const styles = getTokenPostionStyles(token);
     let className = '';
     if(token.player_id === PLAYER_TYPE.red) {
@@ -27,9 +27,10 @@ const drawToken = (token, game, players, playerTokens, updatePlayerTokens, updat
     }
     return (
         <div
+            key={token.id}
             className={`token ${className}`}
             style={styles}
-            onClick={() => updateTokenPostion(token, game, players, playerTokens, updatePlayerTokens, updateGame)}
+            onClick={() => updateTokenPostion({ token, game, players, playerTokens, updatePlayerTokens, updateGame, cells })}
         >
             
         </div>

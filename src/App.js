@@ -32,7 +32,7 @@ function App() {
         }
         {
           playerTokens.map(token => {
-            return drawToken(token, game, players, playerTokens, updatePlayerTokens, updateGame);
+            return drawToken({token, game, players, playerTokens, updatePlayerTokens, updateGame, cells});
           })
         }
       </div>
