@@ -18,7 +18,7 @@ const createCellsUtil = (color1, color2) => {
     }
 
     for(i = 0; i< 5; i++) {
-        cells.push(new Cell(cellId++, CELL_TYPE.safe, color2, color2));
+        cells.push(new Cell(cellId++, CELL_TYPE.safe, color2));
     }
     cells.push(new Cell(cellId++, CELL_TYPE.home, color2, color2));
     return cells;
@@ -45,8 +45,12 @@ const getCellPostionStyles = (cell) => {
         styles.bottom = cell.id * 50 + 'px'
     }
     else if(cell.id >= 69 && cell.id <= 75 ) {
-        styles.left = '350px'
         styles.bottom = (cell.id - 69) * 50 + 'px'
+        if(cell.id === 75) {
+            styles.left = '300px' // home cell
+        } else {
+            styles.left = '350px'
+        }
     }
     else if(cell.id >= 63 && cell.id <= 68 ) {
         styles.left = '400px'
@@ -59,7 +63,11 @@ const getCellPostionStyles = (cell) => {
     }
     else if(cell.id >= 12 && cell.id <= 18 ) {
         styles.left = (cell.id - 12) * 50 + 'px'
-        styles.top = '350px'
+        if(cell.id === 18) {
+            styles.top = '300px' // home cell
+        } else {
+            styles.top = '350px'
+        }
     }
     else if(cell.id >= 19 && cell.id <= 24 ) {
         styles.left = (cell.id - 19) * 50 + 'px'
@@ -71,8 +79,13 @@ const getCellPostionStyles = (cell) => {
         styles.bottom = 450 + (cell.id - 25) * 50 + 'px'
     }
     else if(cell.id >= 31 && cell.id <= 37 ) {
-        styles.left = '350px'
-        styles.bottom = 450 + 250 - (cell.id - 31) * 50 + 'px'
+        if(cell.id === 37) { // home cell
+            styles.left = '300px'
+            styles.bottom = 450 + 224 - (cell.id - 31) * 50 + 'px' 
+        } else {
+            styles.left = '350px'
+            styles.bottom = 450 + 250 - (cell.id - 31) * 50 + 'px'
+        }
     }
     else if(cell.id >= 38 && cell.id <= 43 ) {
         styles.left = '400px'
@@ -84,8 +97,13 @@ const getCellPostionStyles = (cell) => {
         styles.top = '300px'
     }
     else if(cell.id >= 50 && cell.id <= 56 ) {
-        styles.left = 400 + 250 - (cell.id - 51) * 50 + 'px'
-        styles.top = '350px'
+        if(cell.id === 56) { // home cell
+            styles.left = 400 + 224 - (cell.id - 51) * 50 + 'px'
+            styles.top = '300px' 
+        } else {
+            styles.left = 400 + 250 - (cell.id - 51) * 50 + 'px'
+            styles.top = '350px'
+        }
     }
     else if(cell.id >= 57 && cell.id <= 62 ) {
         styles.left = 450 + 250 - (cell.id - 57) * 50 + 'px'

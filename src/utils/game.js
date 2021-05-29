@@ -29,7 +29,7 @@ const getGameStatusLabel = (game, players) => {
     return label;
 };
 
-const changeTurns = (game, updateGame) => {
+const changeTurns = (game, updateGame, playerTokens, updatePlayerTokens) => {
     let playerTurn; 
     if(game.playerTurn === PLAYER_TYPE.red) {
         playerTurn = PLAYER_TYPE.green;
@@ -45,6 +45,25 @@ const changeTurns = (game, updateGame) => {
         playerTurn,
         status: GAME_STATUS.waiting_for_dice
     });
+    endTurn(playerTokens, updatePlayerTokens);
+};
+
+const preserveTurns = (game, updateGame, playerTokens, updatePlayerTokens) => {
+    updateGame({
+        ...game,
+        status: GAME_STATUS.waiting_for_dice
+    });
+    endTurn(playerTokens, updatePlayerTokens);
+};
+
+const endTurn = (playerTokens, updatePlayerTokens) => {
+    const newPlayerTokens = playerTokens.map((playerToken) => {
+        return {
+            ...playerToken,
+            focussed: false
+        }
+    });
+    updatePlayerTokens(newPlayerTokens);
 };
 
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
@@ -117,22 +136,24 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
         const player = players.find(player => player.id === token.player_id);
         const tokenIndex = playerTokens.findIndex(pToken => pToken.id === token.id);
         const newToken = moveToken(game.diceVal, token, player);
-        // finding out if another token was already at that cell
-        let existingTokenIndex = playerTokens.findIndex(ptoken => ptoken.position === newToken.position);
+        // finding out if another token of different player was already at that cell
+        let existingTokenIndex = playerTokens.findIndex(pToken =>
+            pToken.position === newToken.position &&
+            pToken.player_id !== newToken.player_id);
         if(existingTokenIndex !== -1 && !cells[newToken.position].station) {
             playerTokens[existingTokenIndex].position = -1;
             playerTokens[existingTokenIndex].status = TOKEN_STATUS.not_started;
         }
         playerTokens[tokenIndex] = newToken;
         // after the move all tokens are un-focussed
-        const newPlayerTokens = playerTokens.map((playerToken) => {
-            return {
-                ...playerToken,
-                focussed: false
-            }
-        });
-        updatePlayerTokens(newPlayerTokens);
-        changeTurns(game, updateGame);
+        // const newPlayerTokens = playerTokens.map((playerToken) => {
+        //     return {
+        //         ...playerToken,
+        //         focussed: false
+        //     }
+        // });
+        // updatePlayerTokens(newPlayerTokens);
+        
 
         // updating player if token has reached home
         if(newToken.status === TOKEN_STATUS.finished) {
@@ -144,6 +165,12 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
             updatePlayers([...players]);
         }
         
+        if(newToken.status === TOKEN_STATUS.finished || game.diceVal === 6) {
+            preserveTurns(game, updateGame, playerTokens, updatePlayerTokens);
+        } else {
+            // change turns only when a token has not finished or diceVal is not 6
+            changeTurns(game, updateGame, playerTokens, updatePlayerTokens);
+        }
     }
 }
 
@@ -155,10 +182,19 @@ const finishGame = (game, updateGame, player) => {
     });
 };
 
+const disableSkipButton = (game, playerTokens) => {
+    const focussedTokens = playerTokens.filter(pToken => pToken.player_id === game.playerTurn && pToken.focussed);
+    const waitingForTokens = game.status === GAME_STATUS.waiting_for_token
+    const enableSkipButton = focussedTokens.length === 0 && waitingForTokens;
+
+    return !enableSkipButton;
+};
+
 export {
     startGame,
     getGameStatusLabel,
     rollDice,
     updateTokenPostion,
-    changeTurns
+    changeTurns,
+    disableSkipButton
 }
