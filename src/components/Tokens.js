@@ -16,13 +16,13 @@ const drawToken = ({token, game, players, updatePlayers, playerTokens, updatePla
     }
     if(game.status === GAME_STATUS.waiting_for_token) {
         if(game.playerTurn === PLAYER_TYPE.red && token.focussed) {
-            className += ' red-token--active';
+            className += ' red-token--active blink';
         } else if(game.playerTurn === PLAYER_TYPE.green && token.focussed) {
-            className += ' green-token--active';
+            className += ' green-token--active blink';
         } else if(game.playerTurn === PLAYER_TYPE.yellow && token.focussed) {
-            className += ' yellow-token--active';
+            className += ' yellow-token--active blink';
         } else if(game.playerTurn === PLAYER_TYPE.blue && token.focussed) {
-            className += ' blue-token--active';
+            className += ' blue-token--active blink';
         }
     }
     return (

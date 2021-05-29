@@ -28,7 +28,7 @@ function App() {
           })
         }
         {
-          drawStartRects()
+          drawStartRects(game)
         }
         {
           playerTokens.map(token => {
