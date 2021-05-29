@@ -13,10 +13,21 @@ const drawCells = (cell) => {
     } else if(cell.safeFor === PLAYER_TYPE.blue) {
         className = 'blue-safe'
     }
+    if(cell.homeFor) {
+        if(cell.safeFor === PLAYER_TYPE.red) {
+            className += ' arrow-up'
+        }
+        else if(cell.safeFor === PLAYER_TYPE.green) {
+            className += ' arrow-right'
+        } else if(cell.safeFor === PLAYER_TYPE.yellow) {
+            className += ' arrow-down'
+        } else if(cell.safeFor === PLAYER_TYPE.blue) {
+            className += ' arrow-left'
+        }
+    }
     
     return (
         <span key={cell.id} className={`cell ${className}`} style={styles}>
-            {cell.id}
             {cell.station? <span className="cell--station">★</span>: null}
         </span>
     );
