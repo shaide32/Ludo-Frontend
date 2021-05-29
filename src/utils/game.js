@@ -49,7 +49,7 @@ const changeTurns = (game, updateGame) => {
 
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 1 + Math.floor(Math.random() * 6);
+        const diceVal = 4 // 1 + Math.floor(Math.random() * 6);
         
         updateGame({
             ...game,
@@ -117,8 +117,10 @@ const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens,
         const player = players.find(player => player.id === token.player_id);
         const tokenIndex = playerTokens.findIndex(pToken => pToken.id === token.id);
         const newToken = moveToken(game.diceVal, token, player);
-        // finding out if another token was already at that cell
-        let existingTokenIndex = playerTokens.findIndex(ptoken => ptoken.position === newToken.position);
+        // finding out if another token of different player was already at that cell
+        let existingTokenIndex = playerTokens.findIndex(pToken =>
+            pToken.position === newToken.position &&
+            pToken.player_id !== newToken.player_id);
         if(existingTokenIndex !== -1 && !cells[newToken.position].station) {
             playerTokens[existingTokenIndex].position = -1;
             playerTokens[existingTokenIndex].status = TOKEN_STATUS.not_started;
