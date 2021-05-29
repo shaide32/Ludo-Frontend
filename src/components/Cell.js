@@ -28,7 +28,6 @@ const drawCells = (cell) => {
     
     return (
         <span key={cell.id} className={`cell ${className}`} style={styles}>
-            {cell.id}
             {cell.station? <span className="cell--station">★</span>: null}
         </span>
     );
