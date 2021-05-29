@@ -9,7 +9,7 @@ import { drawStartRects } from './components/Start';
 import { drawToken } from './components/Tokens';
 import Game from './actors/game';
 import { GAME_STATUS } from './constants';
-import { getGameStatusLabel, rollDice, startGame, changeTurns } from './utils/game';
+import { getGameStatusLabel, rollDice, startGame, changeTurns, disableSkipButton } from './utils/game';
 
 function App() {
   const [cells, updateCells] = useState(createCells());
@@ -59,7 +59,7 @@ function App() {
         </button>
         <button
           className="btn-secondary"
-          disabled={!(game.status === GAME_STATUS.waiting_for_token)}
+          disabled={disableSkipButton(game, playerTokens)}
           onClick={() => changeTurns(game, updateGame, playerTokens, updatePlayerTokens)}>
           Skip Turn
         </button>

@@ -182,10 +182,19 @@ const finishGame = (game, updateGame, player) => {
     });
 };
 
+const disableSkipButton = (game, playerTokens) => {
+    const focussedTokens = playerTokens.filter(pToken => pToken.player_id === game.playerTurn && pToken.focussed);
+    const waitingForTokens = game.status === GAME_STATUS.waiting_for_token
+    const enableSkipButton = focussedTokens.length === 0 && waitingForTokens;
+
+    return !enableSkipButton;
+};
+
 export {
     startGame,
     getGameStatusLabel,
     rollDice,
     updateTokenPostion,
-    changeTurns
+    changeTurns,
+    disableSkipButton
 }
