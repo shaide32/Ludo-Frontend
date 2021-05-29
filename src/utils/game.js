@@ -49,7 +49,7 @@ const changeTurns = (game, updateGame) => {
 
 const rollDice = (game, updateGame, playerTokens, updatePlayerTokens, players) => {
     if(game.status ===  GAME_STATUS.waiting_for_dice) {
-        const diceVal = 1 // 1 + Math.floor(Math.random() * 6);
+        const diceVal = 1 + Math.floor(Math.random() * 6);
         
         updateGame({
             ...game,
