@@ -21,33 +21,37 @@ function App() {
   console.log(playerTokens);
   return (
     <div className="app">
-      <div className="board">
-        {
-          cells.map(cell => {
-            return drawCells(cell);
-          })
-        }
-        {
-          drawStartRects(game)
-        }
-        {
-          playerTokens.map(token => {
-            return drawToken({token, game, players, updatePlayers, playerTokens, updatePlayerTokens, updateGame, cells});
-          })
-        }
+      <div className="board-container">
+        <div className="board">
+          {
+            cells.map(cell => {
+              return drawCells(cell);
+            })
+          }
+          {
+            drawStartRects(game)
+          }
+          {
+            playerTokens.map(token => {
+              return drawToken({token, game, players, updatePlayers, playerTokens, updatePlayerTokens, updateGame, cells});
+            })
+          }
+        </div>
       </div>
-      <h2> { getGameStatusLabel(game, players)}</h2>
-      <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}>{game.diceVal}</div>
-      <button
-        disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}
-        onClick={() => startGame(game, updateGame)}>
-        Start Game
-      </button>
-      <button
-        disabled={!(game.status === GAME_STATUS.waiting_for_token)}
-        onClick={() => changeTurns(game, updateGame)}>
-        Skip Turn
-      </button>
+      <div className="controls">
+        <h2> { getGameStatusLabel(game, players)}</h2>
+        <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}>{game.diceVal}</div>
+        <button
+          disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}
+          onClick={() => startGame(game, updateGame)}>
+          Start Game
+        </button>
+        <button
+          disabled={!(game.status === GAME_STATUS.waiting_for_token)}
+          onClick={() => changeTurns(game, updateGame)}>
+          Skip Turn
+        </button>
+      </div>
     </div>
   );
 }

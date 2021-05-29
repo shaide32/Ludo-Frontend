@@ -1,13 +1,14 @@
 .app {
   background-color: #EEEEEE;
   text-align: center;
-  width: 750px;
+  /* width: 750px; */
   height: 100%;
   position: relative;
   margin: auto;
   box-sizing: content-box;
   padding-top: 10px;
   padding-bottom: 10px;
+  display: flex;
 }
 
 .board {
@@ -15,7 +16,14 @@
   width: 750px;
   height: 750px;
   border: 2px solid #263238;
-  
+  margin-left: auto;
+}
+
+.board-container {
+  flex: 1 1 60%;
+}
+.controls {
+  flex: 1 1 40%;
 }
 
 .cell {
