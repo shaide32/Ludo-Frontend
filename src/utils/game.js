@@ -9,22 +9,17 @@ const startGame = (game, updateGame) => {
     });
 };
 
-const getGameStatusLabel = (game) => {
+
+const getGameStatusLabel = (game, players) => {
     let label = "";
     if(game.status === GAME_STATUS.finished) {
-        label = "Game has been finished - Reload the page";
+        const winningPlayer = players.find(player => player.tokenRemaining === 0);
+        label += `Game finished: ${winningPlayer.label} Wins.`;
     } else if(game.status === GAME_STATUS.not_started ) {
-        label = "Game is not started - Click on the Start Game button";
+        label += "Game is not started - Click on the Start Game button";
     } else {
-        if(game.playerTurn === PLAYER_TYPE.red) {
-            label = "Waiting for player 1";
-        } else if(game.playerTurn === PLAYER_TYPE.green) {
-            label = "Waiting for player 2";
-        } else if(game.playerTurn === PLAYER_TYPE.yellow) {
-            label = "Waiting for player 3";
-        } else if(game.playerTurn === PLAYER_TYPE.blue) {
-            label = "Waiting for player 4";
-        }
+        const activePlayer = players.find(player => player.id === game.playerTurn);
+        label += `Wating for ${activePlayer.label}`;
         if(game.status === GAME_STATUS.waiting_for_dice) {
             label += "- Click on the box to roll the dice";
         } else if(game.status === GAME_STATUS.waiting_for_token) {
@@ -106,6 +101,7 @@ const moveToken = (diceVal, token, player) => {
             }
         }
     }
+    // token has reached home
     if(cellIndex === player.endCell) {
         status = TOKEN_STATUS.finished;
     }
@@ -116,7 +112,7 @@ const moveToken = (diceVal, token, player) => {
     }
 };
 
-const updateTokenPostion = ({ token, game, players, playerTokens, updatePlayerTokens, updateGame, cells }) => {
+const updateTokenPostion = ({ token, game, players, updatePlayers, playerTokens, updatePlayerTokens, updateGame, cells }) => {
     if(game.status === GAME_STATUS.waiting_for_token && token.focussed) {
         const player = players.find(player => player.id === token.player_id);
         const tokenIndex = playerTokens.findIndex(pToken => pToken.id === token.id);
@@ -137,8 +133,27 @@ const updateTokenPostion = ({ token, game, players, playerTokens, updatePlayerTo
         });
         updatePlayerTokens(newPlayerTokens);
         changeTurns(game, updateGame);
+
+        // updating player if token has reached home
+        if(newToken.status === TOKEN_STATUS.finished) {
+            const playerIndex = players.findIndex(player => player.id === newToken.player_id);
+            players[playerIndex].tokenRemaining--;
+            if(players[playerIndex].tokenRemaining === 0) {
+                finishGame(game, updateGame, players[playerIndex]);
+            }
+            updatePlayers([...players]);
+        }
+        
     }
 }
+
+const finishGame = (game, updateGame, player) => {
+    updateGame({
+        ...game,
+        status: GAME_STATUS.finished,
+        winner: player.id
+    });
+};
 
 export {
     startGame,

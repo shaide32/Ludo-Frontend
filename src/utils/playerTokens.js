@@ -5,10 +5,10 @@ import { PLAYER_TYPE, TOKEN_STATUS } from "../constants";
 
 const createPlayerTokens = () => {
     const playerTokens = [];
-    playerTokens.push(new PlayerToken(1, PLAYER_TYPE.red, -1));
-    playerTokens.push(new PlayerToken(2, PLAYER_TYPE.red, 1, TOKEN_STATUS.active));
-    playerTokens.push(new PlayerToken(3, PLAYER_TYPE.red, -1));
-    playerTokens.push(new PlayerToken(4, PLAYER_TYPE.red, -1));
+    playerTokens.push(new PlayerToken(1, PLAYER_TYPE.red, -1, TOKEN_STATUS.finished));
+    playerTokens.push(new PlayerToken(2, PLAYER_TYPE.red, 74, TOKEN_STATUS.active));
+    playerTokens.push(new PlayerToken(3, PLAYER_TYPE.red, -1, TOKEN_STATUS.finished));
+    playerTokens.push(new PlayerToken(4, PLAYER_TYPE.red, -1, TOKEN_STATUS.finished));
     playerTokens.push(new PlayerToken(5, PLAYER_TYPE.green, -1));
     playerTokens.push(new PlayerToken(6, PLAYER_TYPE.green, -1));
     playerTokens.push(new PlayerToken(7, PLAYER_TYPE.green, 2, TOKEN_STATUS.active));

@@ -32,11 +32,11 @@ function App() {
         }
         {
           playerTokens.map(token => {
-            return drawToken({token, game, players, playerTokens, updatePlayerTokens, updateGame, cells});
+            return drawToken({token, game, players, updatePlayers, playerTokens, updatePlayerTokens, updateGame, cells});
           })
         }
       </div>
-      <h2> { getGameStatusLabel(game)}</h2>
+      <h2> { getGameStatusLabel(game, players)}</h2>
       <div className="dice" onClick={() => rollDice(game, updateGame, playerTokens, updatePlayerTokens, players)}>{game.diceVal}</div>
       <button
         disabled={game.status !== GAME_STATUS.finished && game.status !== GAME_STATUS.not_started}
