@@ -5,8 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import { refreshTokenSetup } from '../../utils/refreshTokenSetup';
 import './Login.css';
 
-const clientId =
-  '386851791646-o7hhcfta2pdgri2hsipjaa695eeeovoj.apps.googleusercontent.com';
+const clientId = '386851791646-ukmedfre69hp581avi6ma7umugd7kekg.apps.googleusercontent.com';
 
 function Login(props) {
     const { user, updateUser } = props;
