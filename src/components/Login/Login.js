@@ -5,8 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import { refreshTokenSetup } from '../../utils/refreshTokenSetup';
 import './Login.css';
 
-const clientId =
-  '386851791646-ukmedfre69hp581avi6ma7umugd7kekg.apps.googleusercontent.com';
+const clientId = '386851791646-ukmedfre69hp581avi6ma7umugd7kekg.apps.googleusercontent.com';
 
 function Login(props) {
     const { user, updateUser } = props;
@@ -18,13 +17,11 @@ function Login(props) {
 
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
-    alert(
-      `Failed to login. 😢`
-    );
   };
 
   return (
     <div className="login-wrapper">
+      <h2>Login to play Ludo</h2>
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"
