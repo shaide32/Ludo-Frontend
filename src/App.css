@@ -1,5 +1,5 @@
 .app {
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   text-align: center;
   /* width: 750px; */
   height: 100%;
@@ -30,7 +30,7 @@ button[disabled] {
 }
 
 .btn-primary {
-  background-color: #388E3C;
+  background-color: #388e3c;
 }
 
 .btn-secondary {
@@ -53,6 +53,7 @@ button[disabled] {
   flex: 1 1 40%;
   text-align: left;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .cell {
@@ -75,7 +76,7 @@ button[disabled] {
   border-radius: 5%;
   margin-bottom: 10px;
   font-size: 64px;
-  background-color: #CFD8DC;
+  background-color: #cfd8dc;
   text-align: center;
   box-shadow: 0px 0px 15px 0px #212121;
 }
@@ -90,7 +91,7 @@ button[disabled] {
   width: 75px;
   height: 75px;
   border-radius: 50%;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   position: relative;
   display: inline-block;
   margin: 20px;
@@ -120,15 +121,15 @@ button[disabled] {
 }
 
 .yellow-safe {
-  background-color: #FFC107;
+  background-color: #ffc107;
 }
 
 .green-safe {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .blue-safe {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 .red-token {
@@ -141,7 +142,7 @@ button[disabled] {
 }
 
 .yellow-token {
-  background-color: #FFA000;
+  background-color: #ffa000;
 }
 
 .yellow-token--active {
@@ -150,7 +151,7 @@ button[disabled] {
 }
 
 .green-token {
-  background-color: #388E3C;
+  background-color: #388e3c;
 }
 
 .green-token--active {
@@ -159,7 +160,7 @@ button[disabled] {
 }
 
 .blue-token {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .blue-token--active {
@@ -171,8 +172,10 @@ button[disabled] {
   animation: blinker 1s linear infinite;
 }
 
-@keyframes blinker {  
-  50% { opacity: 0.5; }
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .arrow-up {
@@ -185,28 +188,28 @@ button[disabled] {
 }
 
 .arrow-right {
-  width: 0; 
+  width: 0;
   height: 0;
   background: transparent;
   border-top: 75px solid transparent;
   border-bottom: 75px solid transparent;
-  border-left: 75px solid #4CAF50;
+  border-left: 75px solid #4caf50;
 }
 
 .arrow-down {
-  width: 0; 
+  width: 0;
   height: 0;
   background: transparent;
   border-left: 75px solid transparent;
   border-right: 75px solid transparent;
-  border-top: 75px solid #FFC107;
+  border-top: 75px solid #ffc107;
 }
 
 .arrow-left {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   background: transparent;
   border-top: 75px solid transparent;
-  border-bottom: 75px solid transparent; 
-  border-right: 75px solid #2196F3; 
+  border-bottom: 75px solid transparent;
+  border-right: 75px solid #2196f3;
 }

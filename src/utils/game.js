@@ -19,7 +19,7 @@ const getGameStatusLabel = (game, players) => {
         label += "Game is not started - Click on the Start Game button";
     } else {
         const activePlayer = players.find(player => player.id === game.playerTurn);
-        label += `Wating for ${activePlayer.label}`;
+        label += `Waiting for ${activePlayer.label}`;
         if(game.status === GAME_STATUS.waiting_for_dice) {
             label += "- Click on the box to roll the dice";
         } else if(game.status === GAME_STATUS.waiting_for_token) {
