@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Ludo-Frontend/static/css/main.7269c0ba.chunk.css",
+    "main.js": "/Ludo-Frontend/static/js/main.15872f13.chunk.js",
+    "main.js.map": "/Ludo-Frontend/static/js/main.15872f13.chunk.js.map",
+    "runtime-main.js": "/Ludo-Frontend/static/js/runtime-main.9981d850.js",
+    "runtime-main.js.map": "/Ludo-Frontend/static/js/runtime-main.9981d850.js.map",
+    "static/js/2.33b4c180.chunk.js": "/Ludo-Frontend/static/js/2.33b4c180.chunk.js",
+    "static/js/2.33b4c180.chunk.js.map": "/Ludo-Frontend/static/js/2.33b4c180.chunk.js.map",
+    "static/js/3.085ad75c.chunk.js": "/Ludo-Frontend/static/js/3.085ad75c.chunk.js",
+    "static/js/3.085ad75c.chunk.js.map": "/Ludo-Frontend/static/js/3.085ad75c.chunk.js.map",
+    "index.html": "/Ludo-Frontend/index.html",
+    "static/css/main.7269c0ba.chunk.css.map": "/Ludo-Frontend/static/css/main.7269c0ba.chunk.css.map",
+    "static/js/2.33b4c180.chunk.js.LICENSE.txt": "/Ludo-Frontend/static/js/2.33b4c180.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9981d850.js",
+    "static/js/2.33b4c180.chunk.js",
+    "static/css/main.7269c0ba.chunk.css",
+    "static/js/main.15872f13.chunk.js"
+  ]
+}
