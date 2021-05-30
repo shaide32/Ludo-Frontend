@@ -6,7 +6,7 @@ import { refreshTokenSetup } from '../../utils/refreshTokenSetup';
 import './Login.css';
 
 const clientId =
-  '386851791646-oiaar3v69kin8s10iuva8uouvjj5b3c7.apps.googleusercontent.com';
+  '386851791646-ukmedfre69hp581avi6ma7umugd7kekg.apps.googleusercontent.com';
 
 function Login(props) {
     const { user, updateUser } = props;
