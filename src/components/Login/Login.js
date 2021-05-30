@@ -1,51 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+import { GoogleLogin } from 'react-google-login';
+// refresh token
+import { refreshTokenSetup } from '../../utils/refreshTokenSetup';
 import './Login.css';
-import PropTypes from 'prop-types';
 
-async function loginUser(credentials) {
- return fetch('http://localhost:5000/login', {
-   method: 'POST',
-   headers: {
-     'Content-Type': 'application/json'
-   },
-   body: JSON.stringify(credentials)
- })
-   .then(data => data.json())
-}
+const clientId =
+  '386851791646-oiaar3v69kin8s10iuva8uouvjj5b3c7.apps.googleusercontent.com';
 
-export default function Login({ setToken }) {
-    const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
+function Login(props) {
+    const { user, updateUser } = props;
+  const onSuccess = (res) => {
+    console.log('Login Success: currentUser:', res.profileObj);
+    updateUser(res.profileObj.name);
+    refreshTokenSetup(res);
+  };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const token = await loginUser({
-      username,
-      password
-    });
-    setToken(token);
-  }
+  const onFailure = (res) => {
+    console.log('Login failed: res:', res);
+    alert(
+      `Failed to login. 😢`
+    );
+  };
 
-  return(
+  return (
     <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUserName(e.target.value)} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={e => setPassword(e.target.value)} />
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+      <GoogleLogin
+        clientId={clientId}
+        buttonText="Login"
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+        cookiePolicy={'single_host_origin'}
+        style={{ marginTop: '100px' }}
+        isSignedIn={true}
+      />
     </div>
-  )
+  );
 }
 
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
+export default Login;
