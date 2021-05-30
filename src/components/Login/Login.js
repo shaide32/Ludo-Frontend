@@ -18,13 +18,11 @@ function Login(props) {
 
   const onFailure = (res) => {
     console.log('Login failed: res:', res);
-    alert(
-      `Failed to login. 😢`
-    );
   };
 
   return (
     <div className="login-wrapper">
+      <h2>Login to play Ludo</h2>
       <GoogleLogin
         clientId={clientId}
         buttonText="Login"
